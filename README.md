@@ -11,6 +11,8 @@ Run script
     cd spltest
     
     pytest -s spltests.py
+    #or you can run one of them: the test pattern can be tc_001, tc_002,...tc_015
+    pytest -s spltest.py -k <test_pattern>
 
     #You will see logs are printed on stdout, or you can check logs in test.log at current folder
 ```
@@ -35,3 +37,15 @@ Test Cases:
 
 Bugs:
 * Above test cases failed except TC4, TC13, TC14
+* Bug1: Calling GET movies with blanks, empty, special chars etc. failed, based on API doc, the functionality doesn't be implemented
+* Bug2: Calling GET movies with count=0, -1, other chars will return all records
+* Bug3: Callng GET movies with header 'Accept: Application/json' failed, but MIME type should be case insensitive
+* Bug4: Calling POST movies with header 'Accept: */*' failed, since 'application/json' meets rule '*/*', server side should return correct results
+* Bug5: Calling POST movies with empty name successed, but actually name and description are required
+* Bug6: Calling POST movies with invalid json payload, still returns status code 200
+* Bug7: Calling POST movies with other fields in payload, still returns status code 200
+* Bug8: Calling POST movies with name with numer, boolean, json array, json object still returns 200
+* Bug9: There are duplicated poster_paths in all movies returned by API
+* Bug10: Theare are some poster_path are not used valid url address
+* Bug11: The index of movie with null genre_ids is not at first in the response
+* Bug12: There are only 1 movie whose title contains other title of movies
